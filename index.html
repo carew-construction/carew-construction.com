@@ -1231,34 +1231,34 @@
         <a href="mailto:Ben@carew-construction.com" class="qmb-btn qmb-email">📧 Email Ben</a>
       </div>
 
-      <form class="quote-form" onsubmit="handleQuoteSubmit(event)">
+      <form class="quote-form" action="https://formspree.io/f/mdajnzrd" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">First Name *</label>
-            <input type="text" id="q-fname" placeholder="Jane" required />
+            <input type="text" name="First Name" placeholder="Jane" required />
           </div>
           <div class="form-group">
             <label class="form-label">Last Name *</label>
-            <input type="text" id="q-lname" placeholder="Smith" required />
+            <input type="text" name="Last Name" placeholder="Smith" required />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Phone *</label>
-            <input type="tel" id="q-phone" placeholder="(916) 555-0000" required />
+            <input type="tel" name="Phone" placeholder="(916) 555-0000" required />
           </div>
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input type="email" id="q-email" placeholder="jane@email.com" />
+            <input type="email" name="email" placeholder="jane@email.com" />
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">City / Neighborhood *</label>
-          <input type="text" id="q-city" placeholder="Sacramento, Citrus Heights, Elk Grove…" required />
+          <input type="text" name="City" placeholder="Sacramento, Citrus Heights, Elk Grove…" required />
         </div>
         <div class="form-group">
           <label class="form-label">Type of Job *</label>
-          <select id="q-type" required>
+          <select name="Job Type" required>
             <option value="">Select a category…</option>
             <option>General Repair</option>
             <option>Decks & Fencing</option>
@@ -1276,12 +1276,12 @@
         </div>
         <div class="form-group">
           <label class="form-label">Describe Your Project *</label>
-          <textarea id="q-desc" placeholder="What needs to be done? How big is the job? Any details that would help us understand the scope…" required></textarea>
+          <textarea name="Project Description" placeholder="What needs to be done? How big is the job? Any details that would help us understand the scope…" required></textarea>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Best Time to Reach You</label>
-            <select id="q-time">
+            <select name="Best Time to Reach">
               <option value="">No preference</option>
               <option>Morning (8am – 12pm)</option>
               <option>Afternoon (12pm – 5pm)</option>
@@ -1291,7 +1291,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">How Did You Hear About Us?</label>
-            <select id="q-source">
+            <select name="How They Found Us">
               <option value="">Select…</option>
               <option>Google Search</option>
               <option>Word of Mouth / Referral</option>
@@ -1303,9 +1303,8 @@
           </div>
         </div>
         <div class="form-submit">
-          <button type="submit" class="btn-primary" id="submit-btn">
-            <span id="btn-text">🌲 Send My Quote Request</span>
-            <div class="spinner" id="btn-spinner"></div>
+          <button type="submit" class="btn-primary">
+            🌲 Send My Quote Request
           </button>
         </div>
         <div class="form-disclaimer">
@@ -1313,11 +1312,7 @@
         </div>
       </form>
 
-      <div id="quote-result">
-        <h4>📬 Your Request Is Ready to Send</h4>
-        <p id="quote-summary-text"></p>
-        <a id="quote-email-link" href="#" class="quote-email-link">📧 Open in Email to Send to Ben</a>
-      </div>
+
     </div>
   </div>
 </section>
@@ -1389,70 +1384,7 @@
     if (e.target === this) closeLightbox();
   });
 
-  // Quote form
-  async function handleQuoteSubmit(e) {
-    e.preventDefault();
-    const fname   = document.getElementById('q-fname').value.trim();
-    const lname   = document.getElementById('q-lname').value.trim();
-    const phone   = document.getElementById('q-phone').value.trim();
-    const email   = document.getElementById('q-email').value.trim();
-    const city    = document.getElementById('q-city').value.trim();
-    const type    = document.getElementById('q-type').value;
-    const desc    = document.getElementById('q-desc').value.trim();
-    const time    = document.getElementById('q-time').value || 'No preference';
-    const source  = document.getElementById('q-source').value || 'Not specified';
 
-    document.getElementById('btn-text').style.display = 'none';
-    document.getElementById('btn-spinner').style.display = 'block';
-    document.getElementById('submit-btn').disabled = true;
-
-    const prompt = `You are an assistant for Carew Construction, a handyman and construction company in Sacramento, CA. The owner's name is Ben Carew.
-
-A customer submitted a quote request through the website. Write a clean, professional email body (no subject line) for Ben so he can quickly understand the job and follow up. Format it clearly with the customer's info and job details. Keep it concise and easy to read at a glance.
-
-Customer Details:
-- Name: ${fname} ${lname}
-- Phone: ${phone}
-- Email: ${email || 'Not provided'}
-- City/Area: ${city}
-- Job Type: ${type}
-- Best Time to Reach: ${time}
-- How they found us: ${source}
-
-Project Description:
-${desc}
-
-Start with: "Hi Ben, a new quote request came in from [name]."
-End with a brief reminder to follow up within 24 hours. Keep the whole thing under 200 words.`;
-
-    let summary = '';
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
-      const data = await res.json();
-      summary = data.content?.map(b => b.text || '').join('') || '';
-    } catch {
-      summary = `Hi Ben, a new quote request came in from ${fname} ${lname}.\n\nPhone: ${phone}\nEmail: ${email || 'N/A'}\nCity: ${city}\nJob Type: ${type}\nBest Time: ${time}\nHow they found us: ${source}\n\nProject:\n${desc}\n\nPlease follow up within 24 hours.`;
-    }
-
-    document.getElementById('btn-text').style.display = 'inline';
-    document.getElementById('btn-spinner').style.display = 'none';
-    document.getElementById('submit-btn').disabled = false;
-
-    document.getElementById('quote-summary-text').textContent = summary;
-    const subject = `Quote Request: ${type} – ${fname} ${lname} (${city})`;
-    const mailto = `mailto:Ben@carew-construction.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(summary)}`;
-    document.getElementById('quote-email-link').href = mailto;
-    document.getElementById('quote-result').style.display = 'block';
-    document.getElementById('quote-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
 </script>
 </body>
 </html>
