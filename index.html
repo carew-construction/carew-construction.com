@@ -744,6 +744,35 @@
     .footer-copy { font-size: 0.72rem; color: #3a2810; }
     .footer-legal { font-size: 0.68rem; color: #3a2810; max-width: 420px; text-align: right; line-height: 1.5; }
 
+    /* ── MOBILE CONTACT BAR ── */
+    .quote-mobile-bar {
+      display: none; /* shown only on mobile via media query */
+    }
+    .qmb-btn {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.9rem 1rem;
+      border-radius: 3px;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--border-wood);
+      transition: background 0.2s;
+    }
+    .qmb-call {
+      background: var(--forest);
+      color: var(--cream);
+      border-color: var(--forest-mid);
+    }
+    .qmb-call:hover { background: var(--forest-mid); }
+    .qmb-email {
+      background: var(--dark-wood);
+      color: var(--tan);
+    }
+    .qmb-email:hover { background: var(--mid-wood); }
+
     /* ── LIGHTBOX ── */
     #lightbox {
       display: none;
@@ -776,6 +805,22 @@
       section { padding: 70px 1.5rem; }
       #hero { padding-bottom: 60px; }
       .hero-disclaimer { position: relative; bottom: auto; right: auto; text-align: left; margin-top: 2rem; }
+
+      /* ── MOBILE QUOTE FIX ── */
+      .quote-sidebar { position: static; }
+
+      /* Collapse the contact card into a slim tap-to-call strip */
+      .quote-contact-card { display: none; }
+
+      /* Show a slim mobile contact bar instead */
+      .quote-mobile-bar {
+        display: flex !important;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Hide the desktop promise block on mobile too, keep it tidy */
+      .quote-promise { display: none; }
     }
     @media (max-width: 600px) {
       .form-row { grid-template-columns: 1fr; }
@@ -1180,6 +1225,12 @@
     </div>
 
     <div>
+      <!-- Mobile-only quick contact bar (replaces the sidebar card) -->
+      <div class="quote-mobile-bar">
+        <a href="tel:9162151486" class="qmb-btn qmb-call">📱 Call Ben</a>
+        <a href="mailto:Ben@carew-construction.com" class="qmb-btn qmb-email">📧 Email Ben</a>
+      </div>
+
       <form class="quote-form" onsubmit="handleQuoteSubmit(event)">
         <div class="form-row">
           <div class="form-group">
