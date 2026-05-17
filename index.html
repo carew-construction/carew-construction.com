@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carew Construction – Sacramento's Trusted Craftsmen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rye&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bark:        #1a1208;
+      --dark-wood:   #2c1a0e;
+      --mid-wood:    #4a2e14;
+      --warm-wood:   #6b3f1c;
+      --tan:         #c49a6c;
+      --straw:       #e8d5b0;
+      --cream:       #f4ede0;
+      --forest:      #2d4a2d;
+      --forest-mid:  #3d6b3d;
+      --moss:        #5a7a3a;
+      --leaf:        #7a9e4a;
+      --rust:        #8b3a0f;
+      --iron:        #3a3530;
+      --text-light:  #e8d5b0;
+      --text-mid:    #b8956a;
+      --border-wood: #3a2010;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bark);
+      color: var(--straw);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── WOOD GRAIN TEXTURE (SVG overlay) ── */
+    .wood-texture {
+      position: relative;
+    }
+    .wood-texture::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: rgba(26, 18, 8, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-wood);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4vw;
+      height: 64px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .nav-axe {
+      font-size: 1.4rem;
+      filter: sepia(1) saturate(2) hue-rotate(10deg);
+    }
+    .nav-logo {
+      font-family: 'Rye', serif;
+      font-size: 1.05rem;
+      color: var(--tan);
+      letter-spacing: 0.05em;
+    }
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-mid);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--straw); }
+    .nav-cta {
+      background: var(--forest);
+      color: var(--straw) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2px;
+      border: 1px solid var(--forest-mid) !important;
+    }
+    .nav-cta:hover { background: var(--forest-mid) !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex; align-items: center;
+      overflow: hidden;
+      background: var(--bark);
+    }
+
+    /* Animated wood rings background */
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(74,46,20,0.6) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 70% 50%, rgba(44,26,14,0.8) 0%, transparent 70%),
+        radial-gradient(ellipse 100% 100% at 70% 50%, rgba(26,18,8,1) 30%, transparent 100%);
+    }
+    .hero-rings {
+      position: absolute; right: -100px; top: 50%; transform: translateY(-50%);
+      width: 700px; height: 700px;
+      opacity: 0.12;
+    }
+    .hero-rings circle {
+      fill: none;
+      stroke: var(--tan);
+      stroke-width: 1;
+      animation: pulse-ring 4s ease-in-out infinite;
+    }
+    .hero-rings circle:nth-child(2) { animation-delay: 0.5s; }
+    .hero-rings circle:nth-child(3) { animation-delay: 1s; }
+    .hero-rings circle:nth-child(4) { animation-delay: 1.5s; }
+    .hero-rings circle:nth-child(5) { animation-delay: 2s; }
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Pine trees silhouette */
+    .hero-trees {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 220px;
+      opacity: 0.18;
+    }
+
+    .hero-content {
+      position: relative; z-index: 10;
+      padding: 120px 6vw 80px;
+      max-width: 760px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(45,74,45,0.4);
+      border: 1px solid rgba(90,122,58,0.4);
+      border-radius: 2px;
+      padding: 0.4rem 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--leaf);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .hero-title {
+      font-family: 'Rye', serif;
+      font-size: clamp(3.2rem, 9vw, 7rem);
+      line-height: 0.95;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.8);
+    }
+    .hero-title-sub {
+      font-family: 'Rye', serif;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      color: var(--tan);
+      letter-spacing: 0.08em;
+      margin-bottom: 1.8rem;
+      display: block;
+    }
+    .hero-divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-divider-line {
+      height: 1px; flex: 1; max-width: 80px;
+      background: linear-gradient(to right, var(--tan), transparent);
+    }
+    .hero-divider-icon { font-size: 1rem; opacity: 0.6; }
+    .hero-sub {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text-mid);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+
+    .btn-primary {
+      background: var(--forest);
+      color: var(--cream);
+      padding: 0.9rem 2.2rem;
+      border: 1px solid var(--forest-mid);
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--forest-mid);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--tan);
+      padding: 0.9rem 2.2rem;
+      border: 1px solid var(--warm-wood);
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover {
+      border-color: var(--tan);
+      color: var(--cream);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+    }
+    .hero-stat-num {
+      font-family: 'Rye', serif;
+      font-size: 1.8rem;
+      color: var(--tan);
+      display: block;
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+
+    .hero-disclaimer {
+      position: absolute; bottom: 1.5rem; right: 4vw;
+      font-size: 0.68rem;
+      color: #4a3520;
+      max-width: 360px;
+      line-height: 1.5;
+      text-align: right;
+      z-index: 10;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px 6vw; }
+    .section-eyebrow {
+      display: flex; align-items: center; gap: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+    .section-eyebrow-line {
+      width: 32px; height: 2px;
+      background: var(--moss);
+    }
+    .section-eyebrow-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--leaf);
+      font-weight: 500;
+    }
+    .section-title {
+      font-family: 'Rye', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+    .section-body {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.98rem;
+      color: var(--text-mid);
+      max-width: 560px;
+      line-height: 1.85;
+    }
+
+    /* ── TRUST BAR ── */
+    #trust-bar {
+      background: var(--dark-wood);
+      border-top: 1px solid var(--border-wood);
+      border-bottom: 1px solid var(--border-wood);
+      padding: 1.5rem 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .trust-item-icon { font-size: 1.1rem; }
+    .trust-sep {
+      width: 1px; height: 24px;
+      background: var(--border-wood);
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--dark-wood);
+      position: relative;
+      overflow: hidden;
+    }
+    #about::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 400px; height: 100%;
+      background: linear-gradient(to left, rgba(45,74,45,0.08), transparent);
+      pointer-events: none;
+    }
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .about-body { font-size: 1rem; color: var(--text-mid); line-height: 1.85; font-family: 'Libre Baskerville', serif; margin-bottom: 1.5rem; }
+    .about-signature {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--tan);
+      margin-top: 1.5rem;
+    }
+    .about-sig-sub { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6a5040; margin-top: 0.2rem; }
+
+    .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .about-card {
+      background: rgba(26,18,8,0.6);
+      border: 1px solid var(--border-wood);
+      border-left: 3px solid var(--moss);
+      border-radius: 3px;
+      padding: 1.4rem 1.6rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: border-left-color 0.2s, background 0.2s;
+    }
+    .about-card:hover {
+      border-left-color: var(--leaf);
+      background: rgba(26,18,8,0.9);
+    }
+    .about-card-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .about-card-title { font-weight: 500; font-size: 0.9rem; color: var(--straw); margin-bottom: 0.3rem; }
+    .about-card-text { font-size: 0.82rem; color: #8a6a50; line-height: 1.55; }
+
+    /* ── SERVICES ── */
+    #services {
+      background: var(--bark);
+      position: relative;
+    }
+    .services-intro {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: end;
+      margin-bottom: 3rem;
+    }
+    .services-note {
+      font-size: 0.82rem; color: #6a5040;
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-wood);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--border-wood);
+      border: 1px solid var(--border-wood);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .service-tile {
+      background: var(--dark-wood);
+      padding: 2rem 1.5rem;
+      display: flex; flex-direction: column; gap: 0.7rem;
+      transition: background 0.2s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-tile::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--forest);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+    .service-tile:hover { background: var(--mid-wood); }
+    .service-tile:hover::after { transform: scaleX(1); }
+    .service-tile-icon { font-size: 1.8rem; }
+    .service-tile-name { font-weight: 600; font-size: 0.92rem; color: var(--straw); }
+    .service-tile-desc { font-size: 0.78rem; color: #7a5a40; line-height: 1.5; }
+
+    /* ── GALLERY ── */
+    #gallery {
+      background: var(--dark-wood);
+      border-top: 1px solid var(--border-wood);
+    }
+    .gallery-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .gallery-tabs {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .gallery-tab {
+      padding: 0.45rem 1.1rem;
+      border-radius: 2px;
+      border: 1px solid var(--border-wood);
+      background: transparent;
+      color: #6a5040;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .gallery-tab.active, .gallery-tab:hover {
+      background: var(--forest);
+      border-color: var(--forest-mid);
+      color: var(--straw);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 200px;
+      gap: 6px;
+    }
+    .g-card {
+      position: relative; overflow: hidden;
+      background: var(--mid-wood);
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    .g-card:nth-child(1) { grid-column: span 5; grid-row: span 2; }
+    .g-card:nth-child(2) { grid-column: span 4; grid-row: span 1; }
+    .g-card:nth-child(3) { grid-column: span 3; grid-row: span 1; }
+    .g-card:nth-child(4) { grid-column: span 4; grid-row: span 1; }
+    .g-card:nth-child(5) { grid-column: span 3; grid-row: span 1; }
+    .g-card:nth-child(6) { grid-column: span 4; grid-row: span 2; }
+    .g-card:nth-child(7) { grid-column: span 4; grid-row: span 1; }
+    .g-card:nth-child(8) { grid-column: span 4; grid-row: span 1; }
+    .g-card:nth-child(n+9) { grid-column: span 4; grid-row: span 1; }
+
+    .g-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .g-card:hover img { transform: scale(1.05); }
+
+    /* Placeholder card */
+    .g-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--dark-wood) 0%, var(--mid-wood) 100%);
+    }
+    .g-ph-icon { font-size: 2rem; opacity: 0.3; }
+    .g-ph-label { font-size: 0.7rem; color: #5a4030; text-align: center; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .g-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,6,2,0.85) 0%, rgba(10,6,2,0.2) 40%, transparent 70%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1rem 1.1rem;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .g-card:hover .g-overlay { opacity: 1; }
+    .g-title { font-size: 0.85rem; font-weight: 600; color: var(--cream); }
+    .g-sub { font-size: 0.7rem; color: var(--tan); }
+
+    .gallery-cta-row {
+      margin-top: 2rem;
+      padding: 1.2rem 1.5rem;
+      background: rgba(26,18,8,0.6);
+      border: 1px dashed rgba(90,122,58,0.3);
+      border-radius: 3px;
+      font-size: 0.8rem;
+      color: #6a5040;
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+    }
+
+    /* ── PROCESS ── */
+    #process {
+      background: var(--forest);
+      border-top: 1px solid rgba(90,122,58,0.3);
+      border-bottom: 1px solid rgba(90,122,58,0.3);
+    }
+    #process .section-title { color: var(--cream); }
+    #process .section-eyebrow-text { color: var(--straw); opacity: 0.6; }
+    #process .section-eyebrow-line { background: rgba(232,213,176,0.3); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 3rem;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute; top: 28px; left: 12%; right: 12%;
+      height: 1px;
+      background: rgba(232,213,176,0.2);
+      z-index: 0;
+    }
+    .process-step {
+      text-align: center;
+      padding: 0 1.5rem;
+      position: relative; z-index: 1;
+    }
+    .process-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--dark-wood);
+      border: 2px solid var(--tan);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem;
+      font-family: 'Rye', serif;
+      font-size: 1.1rem;
+      color: var(--tan);
+    }
+    .process-step-title { font-weight: 600; font-size: 0.9rem; color: var(--cream); margin-bottom: 0.4rem; }
+    .process-step-desc { font-size: 0.78rem; color: rgba(232,213,176,0.5); line-height: 1.55; }
+
+    /* ── QUOTE ── */
+    #quote {
+      background: var(--bark);
+      border-top: 1px solid var(--border-wood);
+    }
+    .quote-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.3fr;
+      gap: 4rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    .quote-sidebar {
+      position: sticky; top: 80px;
+    }
+    .quote-contact-card {
+      background: var(--dark-wood);
+      border: 1px solid var(--border-wood);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .qcc-header {
+      background: var(--forest);
+      padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .qcc-header-icon { font-size: 1.2rem; }
+    .qcc-header-title { font-family: 'Rye', serif; font-size: 1rem; color: var(--cream); }
+    .qcc-body { padding: 1.5rem; }
+    .qcc-item {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+    .qcc-item:last-child { margin-bottom: 0; }
+    .qcc-icon { font-size: 1rem; margin-top: 0.1rem; flex-shrink: 0; }
+    .qcc-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #6a5040; margin-bottom: 0.2rem; }
+    .qcc-val { font-size: 0.9rem; color: var(--straw); }
+    .qcc-val a { color: var(--tan); text-decoration: none; }
+    .qcc-val a:hover { color: var(--straw); }
+
+    .quote-promise {
+      background: rgba(45,74,45,0.15);
+      border: 1px solid rgba(90,122,58,0.25);
+      border-radius: 3px;
+      padding: 1.2rem 1.4rem;
+    }
+    .qp-title { font-size: 0.8rem; font-weight: 600; color: var(--leaf); margin-bottom: 0.6rem; letter-spacing: 0.05em; }
+    .qp-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; color: #7a9e4a; margin-bottom: 0.4rem; }
+
+    /* Form */
+    .quote-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #6a5040;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border-wood);
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      color: var(--straw);
+      background: var(--dark-wood);
+      transition: border-color 0.2s;
+      outline: none;
+      width: 100%;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: #4a3520; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--moss);
+      background: var(--mid-wood);
+    }
+    .form-group select option { background: var(--dark-wood); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-submit .btn-primary { width: 100%; text-align: center; font-size: 0.95rem; padding: 1.1rem; }
+    .form-disclaimer {
+      font-size: 0.72rem;
+      color: #4a3520;
+      font-style: italic;
+      font-family: 'Libre Baskerville', serif;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* Result */
+    #quote-result {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: var(--dark-wood);
+      border-radius: 4px;
+      border-left: 4px solid var(--forest-mid);
+    }
+    #quote-result h4 {
+      font-family: 'Rye', serif;
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+      color: var(--tan);
+    }
+    #quote-result p {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      white-space: pre-wrap;
+      font-family: 'Libre Baskerville', serif;
+    }
+    .quote-email-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      padding: 0.75rem 1.8rem;
+      background: var(--forest);
+      color: var(--cream);
+      text-decoration: none;
+      border-radius: 2px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--forest-mid);
+      transition: background 0.2s;
+    }
+    .quote-email-link:hover { background: var(--forest-mid); }
+
+    .spinner {
+      display: none;
+      width: 18px; height: 18px;
+      border: 2px solid rgba(232,213,176,0.2);
+      border-top-color: var(--straw);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bark);
+      border-top: 1px solid var(--border-wood);
+    }
+    .footer-main {
+      padding: 4rem 6vw 3rem;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+    }
+    .footer-brand-logo {
+      font-family: 'Rye', serif;
+      font-size: 1.4rem;
+      color: var(--tan);
+      margin-bottom: 0.8rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .footer-tagline {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: #4a3520;
+      line-height: 1.6;
+      max-width: 280px;
+      margin-bottom: 1.2rem;
+    }
+    .footer-contact-item {
+      display: flex; gap: 0.6rem; align-items: center;
+      font-size: 0.85rem; color: #6a5040;
+      margin-bottom: 0.5rem;
+    }
+    .footer-contact-item a { color: var(--text-mid); text-decoration: none; }
+    .footer-contact-item a:hover { color: var(--straw); }
+    .footer-col-title {
+      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #4a3520; margin-bottom: 1rem; font-weight: 600;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.5rem; }
+    .footer-links a { font-size: 0.85rem; color: #6a5040; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--tan); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-wood);
+      padding: 1.5rem 6vw;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy { font-size: 0.72rem; color: #3a2810; }
+    .footer-legal { font-size: 0.68rem; color: #3a2810; max-width: 420px; text-align: right; line-height: 1.5; }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(10,6,2,0.96);
+      z-index: 1000;
+      align-items: center; justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 3px; object-fit: contain; }
+    #lightbox-close {
+      position: absolute; top: 1.5rem; right: 2rem;
+      color: var(--tan); font-size: 2rem; cursor: pointer;
+      background: none; border: none; font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-layout, .quote-layout, .services-intro { grid-template-columns: 1fr; gap: 2rem; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .process-steps::before { display: none; }
+      .footer-main { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-legal { text-align: left; }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 180px;
+      }
+      .g-card { grid-column: span 1 !important; grid-row: span 1 !important; }
+      .nav-links { display: none; }
+      section { padding: 70px 1.5rem; }
+      #hero { padding-bottom: 60px; }
+      .hero-disclaimer { position: relative; bottom: auto; right: auto; text-align: left; margin-top: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      #trust-bar { gap: 1.2rem; }
+      .trust-sep { display: none; }
+    }
+
+    /* ── FADE IN ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-badge { animation: fadeUp 0.6s ease both; }
+    .hero-title { animation: fadeUp 0.6s 0.15s ease both; }
+    .hero-title-sub { animation: fadeUp 0.6s 0.25s ease both; }
+    .hero-divider { animation: fadeUp 0.6s 0.3s ease both; }
+    .hero-sub { animation: fadeUp 0.6s 0.35s ease both; }
+    .hero-ctas { animation: fadeUp 0.6s 0.45s ease both; }
+    .hero-stats { animation: fadeUp 0.6s 0.55s ease both; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <span class="nav-axe">🪓</span>
+    <span class="nav-logo">Carew Construction</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Our Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#quote" class="nav-cta">Free Estimate</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <svg class="hero-rings" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="350" cy="350" r="80"/>
+    <circle cx="350" cy="350" r="150"/>
+    <circle cx="350" cy="350" r="220"/>
+    <circle cx="350" cy="350" r="290"/>
+    <circle cx="350" cy="350" r="340"/>
+  </svg>
+
+  <!-- Pine tree silhouette SVG -->
+  <svg class="hero-trees" viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="120,220 160,120 200,220" fill="#2d4a2d"/>
+    <polygon points="140,220 160,80 180,220" fill="#2d4a2d"/>
+    <rect x="155" y="200" width="10" height="20" fill="#1a1208"/>
+    <polygon points="280,220 330,100 380,220" fill="#2d4a2d"/>
+    <polygon points="305,220 330,60 355,220" fill="#3d6b3d"/>
+    <rect x="324" y="195" width="12" height="25" fill="#1a1208"/>
+    <polygon points="440,220 480,130 520,220" fill="#2d4a2d"/>
+    <polygon points="460,220 480,95 500,220" fill="#2d4a2d"/>
+    <rect x="475" y="205" width="10" height="15" fill="#1a1208"/>
+    <polygon points="580,220 640,80 700,220" fill="#3d6b3d"/>
+    <polygon points="610,220 640,50 670,220" fill="#2d4a2d"/>
+    <rect x="634" y="193" width="12" height="27" fill="#1a1208"/>
+    <polygon points="800,220 840,110 880,220" fill="#2d4a2d"/>
+    <polygon points="820,220 840,75 860,220" fill="#3d6b3d"/>
+    <rect x="834" y="200" width="12" height="20" fill="#1a1208"/>
+    <polygon points="960,220 1010,90 1060,220" fill="#2d4a2d"/>
+    <polygon points="985,220 1010,55 1035,220" fill="#2d4a2d"/>
+    <rect x="1004" y="192" width="12" height="28" fill="#1a1208"/>
+    <polygon points="1140,220 1180,120 1220,220" fill="#3d6b3d"/>
+    <polygon points="1160,220 1180,85 1200,220" fill="#2d4a2d"/>
+    <rect x="1174" y="202" width="12" height="18" fill="#1a1208"/>
+    <polygon points="1300,220 1350,100 1400,220" fill="#2d4a2d"/>
+    <polygon points="1325,220 1350,65 1375,220" fill="#3d6b3d"/>
+    <rect x="1344" y="195" width="12" height="25" fill="#1a1208"/>
+    <rect x="0" y="215" width="1440" height="5" fill="#2d4a2d"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">🌲 Greater Sacramento Area · Est. Right Here</div>
+    <h1 class="hero-title">Carew</h1>
+    <span class="hero-title-sub">Construction</span>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <span class="hero-divider-icon">🪓</span>
+      <div class="hero-divider-line" style="background:linear-gradient(to left,var(--tan),transparent)"></div>
+    </div>
+    <p class="hero-sub">Built on craftsmanship, backed by reliability. We handle the jobs that need doing right the first time — big or small, we show up.</p>
+    <div class="hero-ctas">
+      <a href="#quote" class="btn-primary">🌲 Get a Free Estimate</a>
+      <a href="#gallery" class="btn-outline">See Our Work</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-num">Free</span>
+        <span class="hero-stat-label">All Estimates</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">Sac</span>
+        <span class="hero-stat-label">Greater Sacramento</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">All</span>
+        <span class="hero-stat-label">Jobs Considered</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-disclaimer">
+    ⚠ Carew Construction is not a licensed contractor. Services are skilled handyman/construction services and do not include work requiring a California contractor's license.
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div id="trust-bar">
+  <div class="trust-item"><span class="trust-item-icon">✅</span> Free Estimates, Always</div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><span class="trust-item-icon">📍</span> Greater Sacramento Area</div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><span class="trust-item-icon">🤝</span> Honest, Upfront Pricing</div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><span class="trust-item-icon">🔨</span> Handles Pretty Much Anything</div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><span class="trust-item-icon">📞</span> <a href="tel:9162151486" style="color:inherit;text-decoration:none;">(916) 215-1486</a></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-eyebrow">
+    <div class="section-eyebrow-line"></div>
+    <span class="section-eyebrow-text">Who We Are</span>
+  </div>
+  <h2 class="section-title">Rooted in Sacramento.<br>Built on Honest Work.</h2>
+  <div class="about-layout">
+    <div>
+      <p class="about-body">Carew Construction is a Sacramento-area handyman and construction service built on one simple idea: do the job right, treat people with respect, and stand behind the work.</p>
+      <p class="about-body" style="margin-top:1rem;">Whether it's a repair that's been on your list for months, a project you've been putting off, or something that just broke and needs fixing today — we handle it. No job is too small. No runaround. Just solid work from someone who takes pride in it.</p>
+      <p class="about-body" style="margin-top:1rem;">We serve homeowners and property managers throughout the Greater Sacramento area, including Citrus Heights, Elk Grove, Roseville, Rancho Cordova, Folsom, and the surrounding communities.</p>
+      <div class="about-signature">— Ben Carew</div>
+      <div class="about-sig-sub">Owner, Carew Construction</div>
+    </div>
+    <div class="about-cards">
+      <div class="about-card">
+        <span class="about-card-icon">🌲</span>
+        <div>
+          <div class="about-card-title">Local to Sacramento</div>
+          <div class="about-card-text">We live and work here. When you call Carew, you're calling your neighbor — not a call center.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <span class="about-card-icon">🔨</span>
+        <div>
+          <div class="about-card-title">Handles Pretty Much Anything</div>
+          <div class="about-card-text">From a loose doorknob to a full deck build — if it needs doing, chances are we can handle it.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <span class="about-card-icon">💬</span>
+        <div>
+          <div class="about-card-title">Free Estimates</div>
+          <div class="about-card-text">No charge, no obligation. We come look at the job, give you a real number, and you decide.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <span class="about-card-icon">✅</span>
+        <div>
+          <div class="about-card-title">We Stand Behind Our Work</div>
+          <div class="about-card-text">If something's not right, we make it right. Your satisfaction isn't a bonus — it's the standard.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-intro">
+    <div>
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span class="section-eyebrow-text">What We Do</span>
+      </div>
+      <h2 class="section-title">Services</h2>
+      <p class="section-body">A wide range of home repair, maintenance, and construction tasks — handled with care and skill.</p>
+    </div>
+    <div class="services-note">
+      Don't see what you need? Call or send a message. If we can do it, we'll tell you. If we can't, we'll point you in the right direction.
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-tile">
+      <div class="service-tile-icon">🔨</div>
+      <div class="service-tile-name">General Repairs</div>
+      <div class="service-tile-desc">Odds and ends, fixes, wear-and-tear — the stuff that builds up around any home.</div>
+    </div>
+    <div class="service-tile">
+      <div class="service-tile-icon">🪵</div>
+      <div class="service-tile-name">Decks & Fencing</div>
+      <div class="service-tile-desc">New builds, repairs, staining, and reinforcement for decks, fences, and gates.</div>
+    </div>
+    <div class="service-tile">
+      <div class="service-tile-icon">🎨</div>
+      <div class="service-tile-name">Painting & Finishing</div>
+      <div class="service-tile-desc">Interior and exterior painting, trim work, touch-ups, and surface prep.</div>
+    </div>
+    <div class="service-tile">
+      <div class="service-tile-icon">🪟</div>
+      <div class="service-tile-name">Doors & Windows</div>
+      <div class="service-tile-desc">Installation, alignment, weatherstripping, locks, and frame repairs.</div>
+    </div>
+    <div class="service-tile">
+      <div class="service-tile-icon">🚿</div>
+      <div class="service-tile-name">Bathroom & Kitchen</div>
+      <div class="service-tile-desc">Fixture swaps, caulking, tile work, minor plumbing fixes, and cabinet hardware.</div>
+    </div>
+    <div class="service-tile">
+      <div class="service-tile-icon">💡</div>
+      <div class="service-tile-name">Light Fixtures</div>
+      <div class="service-tile-desc">Ceiling fans, light swaps, outdoor lighting, and basic fixture installs.</div>
+    </div>
+    <div class="service-tile">
+      <div class="service-tile-icon">🧱</div>
+      <div class="service-tile-name">Drywall & Patching</div>
+      <div class="service-tile-desc">Holes, cracks, water damage repairs, and smooth-finish patching.</div>
+    </div>
+    <div class="service-tile">
+      <div class="service-tile-icon">📦</div>
+      <div class="service-tile-name">Assembly & Install</div>
+      <div class="service-tile-desc">Furniture, shelving, TV mounts, playground sets, and flat-pack assembly.</div>
+    </div>
+    <div class="service-tile">
+      <div class="service-tile-icon">🌿</div>
+      <div class="service-tile-name">Yard & Exterior</div>
+      <div class="service-tile-desc">Raised beds, sheds, retaining walls, drainage fixes, and exterior odds-and-ends.</div>
+    </div>
+    <div class="service-tile">
+      <div class="service-tile-icon">🪣</div>
+      <div class="service-tile-name">Caulking & Sealing</div>
+      <div class="service-tile-desc">Windows, tubs, showers, siding gaps — sealing up what lets in water and air.</div>
+    </div>
+    <div class="service-tile">
+      <div class="service-tile-icon">🏠</div>
+      <div class="service-tile-name">Pressure Washing</div>
+      <div class="service-tile-desc">Driveways, siding, fences, patios, and walkways cleaned and refreshed.</div>
+    </div>
+    <div class="service-tile" style="border-bottom:3px solid var(--forest);">
+      <div class="service-tile-icon">❓</div>
+      <div class="service-tile-name">Something Else?</div>
+      <div class="service-tile-desc">Seriously — just ask. We've handled a lot of unusual jobs and we won't say no without looking.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-header">
+    <div>
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span class="section-eyebrow-text">Our Work</span>
+      </div>
+      <h2 class="section-title">Project Gallery</h2>
+    </div>
+    <div class="gallery-tabs">
+      <button class="gallery-tab active" onclick="filterGallery('all',this)">All</button>
+      <button class="gallery-tab" onclick="filterGallery('repairs',this)">Repairs</button>
+      <button class="gallery-tab" onclick="filterGallery('outdoor',this)">Outdoor</button>
+      <button class="gallery-tab" onclick="filterGallery('painting',this)">Painting</button>
+      <button class="gallery-tab" onclick="filterGallery('install',this)">Installs</button>
+    </div>
+  </div>
+
+  <div class="gallery-grid" id="gallery-grid">
+    <div class="g-card" data-cat="outdoor">
+      <div class="g-placeholder"><span class="g-ph-icon">🪵</span><span class="g-ph-label">Deck / Fence Photo</span></div>
+      <div class="g-overlay"><div class="g-title">Backyard Deck Build</div><div class="g-sub">Sacramento, CA</div></div>
+    </div>
+    <div class="g-card" data-cat="repairs">
+      <div class="g-placeholder"><span class="g-ph-icon">🔨</span><span class="g-ph-label">Repairs Photo</span></div>
+      <div class="g-overlay"><div class="g-title">Door Frame Repair</div><div class="g-sub">Citrus Heights, CA</div></div>
+    </div>
+    <div class="g-card" data-cat="painting">
+      <div class="g-placeholder"><span class="g-ph-icon">🎨</span><span class="g-ph-label">Painting Photo</span></div>
+      <div class="g-overlay"><div class="g-title">Exterior Repaint</div><div class="g-sub">Elk Grove, CA</div></div>
+    </div>
+    <div class="g-card" data-cat="install">
+      <div class="g-placeholder"><span class="g-ph-icon">💡</span><span class="g-ph-label">Install Photo</span></div>
+      <div class="g-overlay"><div class="g-title">Ceiling Fan Install</div><div class="g-sub">Roseville, CA</div></div>
+    </div>
+    <div class="g-card" data-cat="outdoor">
+      <div class="g-placeholder"><span class="g-ph-icon">🌿</span><span class="g-ph-label">Outdoor Photo</span></div>
+      <div class="g-overlay"><div class="g-title">Fence & Gate</div><div class="g-sub">Folsom, CA</div></div>
+    </div>
+    <div class="g-card" data-cat="repairs">
+      <div class="g-placeholder"><span class="g-ph-icon">🧱</span><span class="g-ph-label">Drywall Photo</span></div>
+      <div class="g-overlay"><div class="g-title">Drywall Patch</div><div class="g-sub">Sacramento, CA</div></div>
+    </div>
+    <div class="g-card" data-cat="painting">
+      <div class="g-placeholder"><span class="g-ph-icon">🎨</span><span class="g-ph-label">Interior Paint Photo</span></div>
+      <div class="g-overlay"><div class="g-title">Interior Full Room</div><div class="g-sub">Rancho Cordova, CA</div></div>
+    </div>
+    <div class="g-card" data-cat="install">
+      <div class="g-placeholder"><span class="g-ph-icon">📦</span><span class="g-ph-label">Assembly Photo</span></div>
+      <div class="g-overlay"><div class="g-title">Shed Assembly</div><div class="g-sub">Elk Grove, CA</div></div>
+    </div>
+    <div class="g-card" data-cat="outdoor">
+      <div class="g-placeholder"><span class="g-ph-icon">🏠</span><span class="g-ph-label">Exterior Photo</span></div>
+      <div class="g-overlay"><div class="g-title">Pressure Washing</div><div class="g-sub">Sacramento, CA</div></div>
+    </div>
+  </div>
+  <div class="gallery-cta-row">
+    📸 Photos coming soon — send your project photos to <a href="mailto:Ben@carew-construction.com" style="color:var(--tan)">Ben@carew-construction.com</a> to be featured here.
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-eyebrow">
+    <div class="section-eyebrow-line"></div>
+    <span class="section-eyebrow-text">How It Works</span>
+  </div>
+  <h2 class="section-title">Simple Process,<br>No Surprises</h2>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="process-num">1</div>
+      <div class="process-step-title">Request an Estimate</div>
+      <div class="process-step-desc">Fill out the form or give us a call. Tell us what you need done.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-num">2</div>
+      <div class="process-step-title">We Come Take a Look</div>
+      <div class="process-step-desc">We'll schedule a time to see the job in person — always free.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-num">3</div>
+      <div class="process-step-title">You Get a Real Quote</div>
+      <div class="process-step-desc">Straight number, no fluff. You decide if you want to move forward.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-num">4</div>
+      <div class="process-step-title">We Get It Done</div>
+      <div class="process-step-desc">We show up when we say, do the work right, and clean up after ourselves.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section id="quote">
+  <div class="section-eyebrow">
+    <div class="section-eyebrow-line"></div>
+    <span class="section-eyebrow-text">Free Estimates</span>
+  </div>
+  <h2 class="section-title">Request a Quote</h2>
+  <p class="section-body">Tell us about your project. We'll get back to you fast and set up a time for a free on-site estimate.</p>
+
+  <div class="quote-layout">
+    <div class="quote-sidebar">
+      <div class="quote-contact-card">
+        <div class="qcc-header">
+          <span class="qcc-header-icon">📞</span>
+          <span class="qcc-header-title">Get in Touch</span>
+        </div>
+        <div class="qcc-body">
+          <div class="qcc-item">
+            <span class="qcc-icon">📱</span>
+            <div>
+              <div class="qcc-label">Phone / Text</div>
+              <div class="qcc-val"><a href="tel:9162151486">(916) 215-1486</a></div>
+            </div>
+          </div>
+          <div class="qcc-item">
+            <span class="qcc-icon">📧</span>
+            <div>
+              <div class="qcc-label">Email</div>
+              <div class="qcc-val"><a href="mailto:Ben@carew-construction.com">Ben@carew-construction.com</a></div>
+            </div>
+          </div>
+          <div class="qcc-item">
+            <span class="qcc-icon">📍</span>
+            <div>
+              <div class="qcc-label">Service Area</div>
+              <div class="qcc-val" style="font-size:0.82rem;color:#7a5a40;">Greater Sacramento — Citrus Heights, Elk Grove, Roseville, Rancho Cordova, Folsom & surrounding areas</div>
+            </div>
+          </div>
+          <div class="qcc-item">
+            <span class="qcc-icon">🕐</span>
+            <div>
+              <div class="qcc-label">Response Time</div>
+              <div class="qcc-val" style="font-size:0.82rem;color:#7a5a40;">We typically respond within a few hours</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="quote-promise">
+        <div class="qp-title">✦ Our Estimate Promise</div>
+        <div class="qp-item">✓ Always free, no obligation</div>
+        <div class="qp-item">✓ Honest, upfront pricing</div>
+        <div class="qp-item">✓ We come to you</div>
+        <div class="qp-item">✓ No pressure to commit</div>
+      </div>
+    </div>
+
+    <div>
+      <form class="quote-form" onsubmit="handleQuoteSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name *</label>
+            <input type="text" id="q-fname" placeholder="Jane" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name *</label>
+            <input type="text" id="q-lname" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Phone *</label>
+            <input type="tel" id="q-phone" placeholder="(916) 555-0000" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="q-email" placeholder="jane@email.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">City / Neighborhood *</label>
+          <input type="text" id="q-city" placeholder="Sacramento, Citrus Heights, Elk Grove…" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type of Job *</label>
+          <select id="q-type" required>
+            <option value="">Select a category…</option>
+            <option>General Repair</option>
+            <option>Decks & Fencing</option>
+            <option>Painting / Finishing</option>
+            <option>Doors & Windows</option>
+            <option>Bathroom / Kitchen</option>
+            <option>Light Fixtures</option>
+            <option>Drywall & Patching</option>
+            <option>Assembly & Installation</option>
+            <option>Yard & Exterior</option>
+            <option>Pressure Washing</option>
+            <option>Caulking & Sealing</option>
+            <option>Other / Not Sure</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Describe Your Project *</label>
+          <textarea id="q-desc" placeholder="What needs to be done? How big is the job? Any details that would help us understand the scope…" required></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Best Time to Reach You</label>
+            <select id="q-time">
+              <option value="">No preference</option>
+              <option>Morning (8am – 12pm)</option>
+              <option>Afternoon (12pm – 5pm)</option>
+              <option>Evening (5pm – 8pm)</option>
+              <option>Anytime</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">How Did You Hear About Us?</label>
+            <select id="q-source">
+              <option value="">Select…</option>
+              <option>Google Search</option>
+              <option>Word of Mouth / Referral</option>
+              <option>Facebook / Instagram</option>
+              <option>Nextdoor</option>
+              <option>Saw a sign / truck</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn-primary" id="submit-btn">
+            <span id="btn-text">🌲 Send My Quote Request</span>
+            <div class="spinner" id="btn-spinner"></div>
+          </button>
+        </div>
+        <div class="form-disclaimer">
+          No spam, no obligation. Your info goes directly to Ben at Carew Construction.
+        </div>
+      </form>
+
+      <div id="quote-result">
+        <h4>📬 Your Request Is Ready to Send</h4>
+        <p id="quote-summary-text"></p>
+        <a id="quote-email-link" href="#" class="quote-email-link">📧 Open in Email to Send to Ben</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div>
+      <div class="footer-brand-logo">🪓 Carew Construction</div>
+      <div class="footer-tagline">Built on honest work and Sacramento roots. We handle the jobs that need doing right.</div>
+      <div class="footer-contact-item">📱 <a href="tel:9162151486">(916) 215-1486</a></div>
+      <div class="footer-contact-item">📧 <a href="mailto:Ben@carew-construction.com">Ben@carew-construction.com</a></div>
+      <div class="footer-contact-item">📍 Greater Sacramento, CA</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Project Gallery</a></li>
+        <li><a href="#process">How It Works</a></li>
+        <li><a href="#quote">Request a Quote</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Service Area</div>
+      <ul class="footer-links">
+        <li><a href="#quote">Sacramento</a></li>
+        <li><a href="#quote">Citrus Heights</a></li>
+        <li><a href="#quote">Elk Grove</a></li>
+        <li><a href="#quote">Roseville</a></li>
+        <li><a href="#quote">Rancho Cordova</a></li>
+        <li><a href="#quote">Folsom</a></li>
+        <li><a href="#quote">Surrounding Areas</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Carew Construction. All rights reserved.</div>
+    <div class="footer-legal">⚠ Carew Construction is not a licensed contractor. Services are skilled handyman and construction services that do not require a contractor's license under California law (CSLB). Work requiring a license is not offered.</div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="Project photo" />
+</div>
+
+<script>
+  // Gallery filter
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.g-card').forEach(card => {
+      card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+    });
+  }
+
+  // Lightbox for real images
+  document.querySelectorAll('.g-card img').forEach(img => {
+    img.addEventListener('click', () => {
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox').classList.add('open');
+    });
+  });
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  // Quote form
+  async function handleQuoteSubmit(e) {
+    e.preventDefault();
+    const fname   = document.getElementById('q-fname').value.trim();
+    const lname   = document.getElementById('q-lname').value.trim();
+    const phone   = document.getElementById('q-phone').value.trim();
+    const email   = document.getElementById('q-email').value.trim();
+    const city    = document.getElementById('q-city').value.trim();
+    const type    = document.getElementById('q-type').value;
+    const desc    = document.getElementById('q-desc').value.trim();
+    const time    = document.getElementById('q-time').value || 'No preference';
+    const source  = document.getElementById('q-source').value || 'Not specified';
+
+    document.getElementById('btn-text').style.display = 'none';
+    document.getElementById('btn-spinner').style.display = 'block';
+    document.getElementById('submit-btn').disabled = true;
+
+    const prompt = `You are an assistant for Carew Construction, a handyman and construction company in Sacramento, CA. The owner's name is Ben Carew.
+
+A customer submitted a quote request through the website. Write a clean, professional email body (no subject line) for Ben so he can quickly understand the job and follow up. Format it clearly with the customer's info and job details. Keep it concise and easy to read at a glance.
+
+Customer Details:
+- Name: ${fname} ${lname}
+- Phone: ${phone}
+- Email: ${email || 'Not provided'}
+- City/Area: ${city}
+- Job Type: ${type}
+- Best Time to Reach: ${time}
+- How they found us: ${source}
+
+Project Description:
+${desc}
+
+Start with: "Hi Ben, a new quote request came in from [name]."
+End with a brief reminder to follow up within 24 hours. Keep the whole thing under 200 words.`;
+
+    let summary = '';
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+      const data = await res.json();
+      summary = data.content?.map(b => b.text || '').join('') || '';
+    } catch {
+      summary = `Hi Ben, a new quote request came in from ${fname} ${lname}.\n\nPhone: ${phone}\nEmail: ${email || 'N/A'}\nCity: ${city}\nJob Type: ${type}\nBest Time: ${time}\nHow they found us: ${source}\n\nProject:\n${desc}\n\nPlease follow up within 24 hours.`;
+    }
+
+    document.getElementById('btn-text').style.display = 'inline';
+    document.getElementById('btn-spinner').style.display = 'none';
+    document.getElementById('submit-btn').disabled = false;
+
+    document.getElementById('quote-summary-text').textContent = summary;
+    const subject = `Quote Request: ${type} – ${fname} ${lname} (${city})`;
+    const mailto = `mailto:Ben@carew-construction.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(summary)}`;
+    document.getElementById('quote-email-link').href = mailto;
+    document.getElementById('quote-result').style.display = 'block';
+    document.getElementById('quote-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+</body>
+</html>
