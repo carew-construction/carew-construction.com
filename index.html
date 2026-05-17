@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carew Construction – Sacramento's Trusted Craftsmen</title>
+  <title>Carew Construction – Sacramento's Trusted Handyman</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Rye&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
@@ -100,9 +100,10 @@
     #hero {
       min-height: 100vh;
       position: relative;
-      display: flex; align-items: center;
+      display: flex; align-items: center; justify-content: flex-start;
       overflow: hidden;
       background: var(--bark);
+      width: 100%;
     }
 
     /* Animated wood rings background */
@@ -143,7 +144,8 @@
     .hero-content {
       position: relative; z-index: 10;
       padding: 120px 6vw 80px;
-      max-width: 760px;
+      width: 100%;
+      max-width: 700px;
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -234,28 +236,29 @@
     .hero-stats {
       display: flex; gap: 2.5rem; flex-wrap: wrap;
     }
-    .hero-stat-num {
-      font-family: 'Rye', serif;
-      font-size: 1.8rem;
-      color: var(--tan);
-      display: block;
-      line-height: 1;
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
     }
-    .hero-stat-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-mid);
+    .hero-pill {
+      background: rgba(200,135,42,0.12);
+      border: 1px solid rgba(200,135,42,0.3);
+      border-radius: 100px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      color: var(--tan);
+      font-weight: 500;
     }
 
     .hero-disclaimer {
-      position: absolute; bottom: 1.5rem; right: 4vw;
       font-size: 0.68rem;
-      color: #4a3520;
-      max-width: 360px;
+      color: #5a4530;
       line-height: 1.5;
-      text-align: right;
-      z-index: 10;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #2a1808;
+      width: 100%;
     }
 
     /* ── SECTION BASE ── */
@@ -791,6 +794,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
+      html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
       .about-layout, .quote-layout, .services-intro { grid-template-columns: 1fr; gap: 2rem; }
       .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
       .process-steps::before { display: none; }
@@ -801,33 +805,46 @@
         grid-auto-rows: 180px;
       }
       .g-card { grid-column: span 1 !important; grid-row: span 1 !important; }
+      nav { padding: 0 1rem; width: 100%; }
       .nav-links { display: none; }
-      section { padding: 70px 1.5rem; }
-      #hero { padding-bottom: 60px; }
-      .hero-disclaimer { position: relative; bottom: auto; right: auto; text-align: left; margin-top: 2rem; }
+      section { padding: 70px 1rem; width: 100%; }
+      #hero { padding: 0; width: 100%; min-height: 100vh; }
+      .hero-content { max-width: 100%; width: 100%; padding: 80px 1.2rem 2rem; }
+      .hero-bg { display: none; }
+      #hero::after { display: none; }
+      .hero-rings { display: none; }
+      #trust-bar { padding: 1.2rem 1rem; width: 100%; }
+      footer, .footer-main, .footer-bottom { padding-left: 1rem; padding-right: 1rem; width: 100%; }
+      .hero-title { font-size: clamp(2.5rem, 14vw, 5rem); }
+      .hero-disclaimer { position: relative; bottom: auto; right: auto; text-align: left; margin-top: 2rem; max-width: 100%; }
+      .hero-rings { display: none; }
 
       /* ── MOBILE QUOTE FIX ── */
-      .quote-sidebar { position: static; }
-
-      /* Collapse the contact card into a slim tap-to-call strip */
+      .quote-sidebar { position: static; width: 100%; }
       .quote-contact-card { display: none; }
-
-      /* Show a slim mobile contact bar instead */
       .quote-mobile-bar {
         display: flex !important;
         gap: 0.8rem;
         margin-bottom: 1.5rem;
+        width: 100%;
       }
-
-      /* Hide the desktop promise block on mobile too, keep it tidy */
       .quote-promise { display: none; }
+      .quote-form { width: 100%; }
     }
     @media (max-width: 600px) {
       .form-row { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: 1fr; }
-      .hero-stats { gap: 1.5rem; }
-      #trust-bar { gap: 1.2rem; }
+      #trust-bar { gap: 1rem; flex-wrap: wrap; justify-content: flex-start; }
       .trust-sep { display: none; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .about-pillars { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; width: 100%; }
+      .hero-ctas a { text-align: center; width: 100%; box-sizing: border-box; }
+      .hero-title { font-size: clamp(3rem, 16vw, 5rem); }
+      .hero-title-sub { font-size: clamp(1.1rem, 6vw, 1.8rem); }
+      .hero-sub { font-size: 1rem; }
+      .hero-pills { gap: 0.5rem; }
     }
 
     /* ── FADE IN ANIMATION ── */
@@ -841,7 +858,7 @@
     .hero-divider { animation: fadeUp 0.6s 0.3s ease both; }
     .hero-sub { animation: fadeUp 0.6s 0.35s ease both; }
     .hero-ctas { animation: fadeUp 0.6s 0.45s ease both; }
-    .hero-stats { animation: fadeUp 0.6s 0.55s ease both; }
+    .hero-pills { animation: fadeUp 0.6s 0.55s ease both; }
   </style>
 </head>
 <body>
@@ -910,28 +927,17 @@
       <span class="hero-divider-icon">🪓</span>
       <div class="hero-divider-line" style="background:linear-gradient(to left,var(--tan),transparent)"></div>
     </div>
-    <p class="hero-sub">Built on craftsmanship, backed by reliability. We handle the jobs that need doing right the first time — big or small, we show up.</p>
+    <p class="hero-sub">Built on craftsmanship, backed by reliability. I handle the jobs that need doing right the first time — big or small, I show up.</p>
     <div class="hero-ctas">
       <a href="#quote" class="btn-primary">🌲 Get a Free Estimate</a>
       <a href="#gallery" class="btn-outline">See Our Work</a>
     </div>
-    <div class="hero-stats">
-      <div>
-        <span class="hero-stat-num">Free</span>
-        <span class="hero-stat-label">All Estimates</span>
-      </div>
-      <div>
-        <span class="hero-stat-num">Sac</span>
-        <span class="hero-stat-label">Greater Sacramento</span>
-      </div>
-      <div>
-        <span class="hero-stat-num">All</span>
-        <span class="hero-stat-label">Jobs Considered</span>
-      </div>
+    <div class="hero-pills">
+      <span class="hero-pill">✅ Free Estimates</span>
+      <span class="hero-pill">📍 Greater Sacramento</span>
+      <span class="hero-pill">🔨 All Jobs Considered</span>
     </div>
-  </div>
-  <div class="hero-disclaimer">
-    ⚠ Carew Construction is not a licensed contractor. Services are skilled handyman/construction services and do not include work requiring a California contractor's license.
+    <p class="hero-disclaimer">⚠ Carew Construction is not a licensed contractor. Services are skilled handyman/construction services and do not include work requiring a California contractor's license.</p>
   </div>
 </section>
 
@@ -957,9 +963,9 @@
   <h2 class="section-title">Rooted in Sacramento.<br>Built on Honest Work.</h2>
   <div class="about-layout">
     <div>
-      <p class="about-body">Carew Construction is a Sacramento-area handyman and construction service built on one simple idea: do the job right, treat people with respect, and stand behind the work.</p>
-      <p class="about-body" style="margin-top:1rem;">Whether it's a repair that's been on your list for months, a project you've been putting off, or something that just broke and needs fixing today — we handle it. No job is too small. No runaround. Just solid work from someone who takes pride in it.</p>
-      <p class="about-body" style="margin-top:1rem;">We serve homeowners and property managers throughout the Greater Sacramento area, including Citrus Heights, Elk Grove, Roseville, Rancho Cordova, Folsom, and the surrounding communities.</p>
+      <p class="about-body">I'm Ben Carew — a one-man operation built on one simple idea: do the job right, treat people with respect, and stand behind the work. At Carew Construction, I treat every customer like family.</p>
+      <p class="about-body" style="margin-top:1rem;">Whether it's a repair that's been on your list for months, a project you've been putting off, or something that just broke and needs fixing today — I handle it. No job is too small. No runaround. Just solid work from someone who takes pride in it.</p>
+      <p class="about-body" style="margin-top:1rem;">I serve homeowners and property managers throughout the Greater Sacramento area, including Citrus Heights, Elk Grove, Roseville, Rancho Cordova, Folsom, and surrounding communities.</p>
       <div class="about-signature">— Ben Carew</div>
       <div class="about-sig-sub">Owner, Carew Construction</div>
     </div>
@@ -968,28 +974,28 @@
         <span class="about-card-icon">🌲</span>
         <div>
           <div class="about-card-title">Local to Sacramento</div>
-          <div class="about-card-text">We live and work here. When you call Carew, you're calling your neighbor — not a call center.</div>
+          <div class="about-card-text">I live and work here. When you call Carew, you're calling your neighbor — not a call center.</div>
         </div>
       </div>
       <div class="about-card">
         <span class="about-card-icon">🔨</span>
         <div>
           <div class="about-card-title">Handles Pretty Much Anything</div>
-          <div class="about-card-text">From a loose doorknob to a full deck build — if it needs doing, chances are we can handle it.</div>
+          <div class="about-card-text">From a loose doorknob to a full deck build — if it needs doing, chances are I can handle it.</div>
         </div>
       </div>
       <div class="about-card">
         <span class="about-card-icon">💬</span>
         <div>
           <div class="about-card-title">Free Estimates</div>
-          <div class="about-card-text">No charge, no obligation. We come look at the job, give you a real number, and you decide.</div>
+          <div class="about-card-text">No charge, no obligation. I come look at the job, give you a real number, and you decide.</div>
         </div>
       </div>
       <div class="about-card">
         <span class="about-card-icon">✅</span>
         <div>
           <div class="about-card-title">We Stand Behind Our Work</div>
-          <div class="about-card-text">If something's not right, we make it right. Your satisfaction isn't a bonus — it's the standard.</div>
+          <div class="about-card-text">If something's not right, I make it right. Your satisfaction isn't a bonus — it's the standard.</div>
         </div>
       </div>
     </div>
@@ -1008,7 +1014,7 @@
       <p class="section-body">A wide range of home repair, maintenance, and construction tasks — handled with care and skill.</p>
     </div>
     <div class="services-note">
-      Don't see what you need? Call or send a message. If we can do it, we'll tell you. If we can't, we'll point you in the right direction.
+      Don't see what you need? Call or send a message. If I can do it, I'll tell you. If I can't, I'll point you in the right direction.
     </div>
   </div>
   <div class="services-grid">
@@ -1148,12 +1154,12 @@
     <div class="process-step">
       <div class="process-num">1</div>
       <div class="process-step-title">Request an Estimate</div>
-      <div class="process-step-desc">Fill out the form or give us a call. Tell us what you need done.</div>
+      <div class="process-step-desc">Fill out the form or give me a call. Tell me what you need done.</div>
     </div>
     <div class="process-step">
       <div class="process-num">2</div>
       <div class="process-step-title">We Come Take a Look</div>
-      <div class="process-step-desc">We'll schedule a time to see the job in person — always free.</div>
+      <div class="process-step-desc">I'll schedule a time to see the job in person — always free.</div>
     </div>
     <div class="process-step">
       <div class="process-num">3</div>
@@ -1163,7 +1169,7 @@
     <div class="process-step">
       <div class="process-num">4</div>
       <div class="process-step-title">We Get It Done</div>
-      <div class="process-step-desc">We show up when we say, do the work right, and clean up after ourselves.</div>
+      <div class="process-step-desc">I show up when I say, do the work right, and clean up after myself.</div>
     </div>
   </div>
 </section>
@@ -1210,7 +1216,7 @@
             <span class="qcc-icon">🕐</span>
             <div>
               <div class="qcc-label">Response Time</div>
-              <div class="qcc-val" style="font-size:0.82rem;color:#7a5a40;">We typically respond within a few hours</div>
+              <div class="qcc-val" style="font-size:0.82rem;color:#7a5a40;">I typically respond within a few hours</div>
             </div>
           </div>
         </div>
@@ -1219,7 +1225,7 @@
         <div class="qp-title">✦ Our Estimate Promise</div>
         <div class="qp-item">✓ Always free, no obligation</div>
         <div class="qp-item">✓ Honest, upfront pricing</div>
-        <div class="qp-item">✓ We come to you</div>
+        <div class="qp-item">✓ I come to you</div>
         <div class="qp-item">✓ No pressure to commit</div>
       </div>
     </div>
@@ -1322,7 +1328,7 @@
   <div class="footer-main">
     <div>
       <div class="footer-brand-logo">🪓 Carew Construction</div>
-      <div class="footer-tagline">Built on honest work and Sacramento roots. We handle the jobs that need doing right.</div>
+      <div class="footer-tagline">Built on honest work and Sacramento roots. I handle the jobs that need doing right.</div>
       <div class="footer-contact-item">📱 <a href="tel:9162151486">(916) 215-1486</a></div>
       <div class="footer-contact-item">📧 <a href="mailto:Ben@carew-construction.com">Ben@carew-construction.com</a></div>
       <div class="footer-contact-item">📍 Greater Sacramento, CA</div>
